@@ -1,0 +1,200 @@
+{
+  "cable-y-raises": {
+    "bytes": 12380426,
+    "w": 1280,
+    "h": 720,
+    "dur": 85
+  },
+  "wide-grip-latpulldown": {
+    "bytes": 14112887,
+    "w": 1280,
+    "h": 720,
+    "dur": 119
+  },
+  "kelso-shrugs": {
+    "bytes": 2146772,
+    "w": 1280,
+    "h": 720,
+    "dur": 31
+  },
+  "t-bar-machine": {
+    "bytes": 13546362,
+    "w": 1280,
+    "h": 720,
+    "dur": 128
+  },
+  "cable-lat-pullover": {
+    "bytes": 21484132,
+    "w": 1280,
+    "h": 720,
+    "dur": 158
+  },
+  "db-lateral-raises": {
+    "bytes": 13839776,
+    "w": 1280,
+    "h": 720,
+    "dur": 102
+  },
+  "cable-reverse-curl": {
+    "bytes": 4665820,
+    "w": 1280,
+    "h": 720,
+    "dur": 35
+  },
+  "abdominal-crunches": {
+    "bytes": 6506026,
+    "w": 1280,
+    "h": 720,
+    "dur": 64
+  },
+  "db-low-incline-chest-press": {
+    "bytes": 9096117,
+    "w": 1280,
+    "h": 720,
+    "dur": 63
+  },
+  "chest-fly-machine": {
+    "bytes": 9830587,
+    "w": 1280,
+    "h": 720,
+    "dur": 76
+  },
+  "db-no-cheat-curl": {
+    "bytes": 2561014,
+    "w": 720,
+    "h": 1280,
+    "dur": 23
+  },
+  "rope-triceps-pushdown": {
+    "bytes": 15515208,
+    "w": 1280,
+    "h": 720,
+    "dur": 105
+  },
+  "biceps-bayesian-curl": {
+    "bytes": 13960012,
+    "w": 1280,
+    "h": 720,
+    "dur": 115
+  },
+  "rope-overhead-extension": {
+    "bytes": 20680710,
+    "w": 1280,
+    "h": 720,
+    "dur": 136
+  },
+  "cable-hammer-curl": {
+    "bytes": 6844930,
+    "w": 1280,
+    "h": 720,
+    "dur": 48
+  },
+  "seated-leg-curl": {
+    "bytes": 9913472,
+    "w": 1280,
+    "h": 720,
+    "dur": 83
+  },
+  "leg-press-machine": {
+    "bytes": 12575301,
+    "w": 1280,
+    "h": 720,
+    "dur": 106
+  },
+  "smith-hip-thrust": {
+    "bytes": 1500398,
+    "w": 1280,
+    "h": 720,
+    "dur": 22
+  },
+  "adductors-machine": {
+    "bytes": 917890,
+    "w": 1280,
+    "h": 720,
+    "dur": 27
+  },
+  "smith-standing-calf-raises": {
+    "bytes": 1266944,
+    "w": 720,
+    "h": 1280,
+    "dur": 31
+  },
+  "cable-lateral-raises-w-h": {
+    "bytes": 10322729,
+    "w": 1280,
+    "h": 720,
+    "dur": 98
+  },
+  "cable-torso-rotation": {
+    "bytes": 1097285,
+    "w": 1280,
+    "h": 720,
+    "dur": 19
+  },
+  "db-flat-press": {
+    "bytes": 10493356,
+    "w": 1280,
+    "h": 720,
+    "dur": 69
+  },
+  "smith-incline-shoulder-press": {
+    "bytes": 5574355,
+    "w": 1280,
+    "h": 720,
+    "dur": 60
+  },
+  "close-grip-seated-row": {
+    "bytes": 1264607,
+    "w": 1280,
+    "h": 720,
+    "dur": 24
+  },
+  "lateral-raises-machine": {
+    "bytes": 12968492,
+    "w": 1280,
+    "h": 720,
+    "dur": 104
+  },
+  "db-preacher-curl": {
+    "bytes": 16601986,
+    "w": 1280,
+    "h": 720,
+    "dur": 106
+  },
+  "rdls": {
+    "bytes": 24401126,
+    "w": 1280,
+    "h": 720,
+    "dur": 201
+  },
+  "hack-squat-machine": {
+    "bytes": 13877712,
+    "w": 1280,
+    "h": 720,
+    "dur": 118
+  },
+  "leg-extension-machine": {
+    "bytes": 998026,
+    "w": 1280,
+    "h": 720,
+    "dur": 23
+  },
+  "lying-leg-curl": {
+    "bytes": 12189673,
+    "w": 1280,
+    "h": 720,
+    "dur": 97
+  },
+  "db-wrist-flexion": {
+    "bytes": 4406979,
+    "w": 1280,
+    "h": 720,
+    "dur": 35
+  },
+  "split-breakdown": {
+    "bytes": 54627663,
+    "w": 1280,
+    "h": 720,
+    "dur": 813
+  }
+}

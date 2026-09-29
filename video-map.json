@@ -1,0 +1,478 @@
+{
+  "intro": {
+    "output": "videos/split-breakdown.mp4",
+    "source": "شرح كامل شداد سبليت.mp4",
+    "outputMB": 54.6,
+    "outputSeconds": 813,
+    "crf": 30,
+    "trimmedToSeconds": 813,
+    "note": "source fails to decode from 814.015397s (of 1229.19s); kept the clean first 813s"
+  },
+  "exercises": [
+    {
+      "day": "d1",
+      "index": 1,
+      "exercise": "Cable y raises",
+      "output": "videos/cable-y-raises.mp4",
+      "source": "Day 01/Cable y raises.mp4",
+      "match": "exact name",
+      "outputMB": 12.4,
+      "outputSeconds": 85,
+      "crf": 30
+    },
+    {
+      "day": "d1",
+      "index": 2,
+      "exercise": "Wide grip latpulldown",
+      "output": "videos/wide-grip-latpulldown.mp4",
+      "source": "Day 01/Wide grip latpulldown.mp4",
+      "match": "exact name",
+      "outputMB": 14.1,
+      "outputSeconds": 119,
+      "crf": 30
+    },
+    {
+      "day": "d1",
+      "index": 3,
+      "exercise": "Kelso shrugs",
+      "output": "videos/kelso-shrugs.mp4",
+      "source": "Day 01/Kelso Shrugs.mp4",
+      "match": "exact name",
+      "outputMB": 2.1,
+      "outputSeconds": 31,
+      "crf": 30
+    },
+    {
+      "day": "d1",
+      "index": 4,
+      "exercise": "T bar machine",
+      "output": "videos/t-bar-machine.mp4",
+      "source": "Day 01/T bar machine.mp4",
+      "match": "exact name",
+      "outputMB": 13.5,
+      "outputSeconds": 128,
+      "crf": 30
+    },
+    {
+      "day": "d1",
+      "index": 5,
+      "exercise": "Cable lat pullover",
+      "output": "videos/cable-lat-pullover.mp4",
+      "source": "Day 01/Cable lat pullover.mp4",
+      "match": "exact name",
+      "outputMB": 21.5,
+      "outputSeconds": 158,
+      "crf": 30
+    },
+    {
+      "day": "d1",
+      "index": 6,
+      "exercise": "DB lateral raises",
+      "output": "videos/db-lateral-raises.mp4",
+      "source": "Day 01/DB lateral raises.mp4",
+      "match": "exact name",
+      "outputMB": 13.8,
+      "outputSeconds": 102,
+      "crf": 30
+    },
+    {
+      "day": "d1",
+      "index": 7,
+      "exercise": "Cable reverse curl",
+      "output": "videos/cable-reverse-curl.mp4",
+      "source": "Day 01/Cable reverse curl.mp4",
+      "match": "exact name",
+      "outputMB": 4.7,
+      "outputSeconds": 35,
+      "crf": 30
+    },
+    {
+      "day": "d1",
+      "index": 8,
+      "exercise": "Abdominal crunches",
+      "output": "videos/abdominal-crunches.mp4",
+      "source": "Day 01/Abdominal crunches.mp4",
+      "match": "exact name",
+      "outputMB": 6.5,
+      "outputSeconds": 64,
+      "crf": 30
+    },
+    {
+      "day": "d2",
+      "index": 1,
+      "exercise": "DB low incline chest press",
+      "output": "videos/db-low-incline-chest-press.mp4",
+      "source": "Day 02/DB low incline chest press.mp4",
+      "match": "exact name",
+      "outputMB": 9.1,
+      "outputSeconds": 63,
+      "crf": 30
+    },
+    {
+      "day": "d2",
+      "index": 2,
+      "exercise": "Chest fly machine",
+      "output": "videos/chest-fly-machine.mp4",
+      "source": "Day 02/Chest fly machine.mp4",
+      "match": "exact name",
+      "outputMB": 9.8,
+      "outputSeconds": 76,
+      "crf": 30
+    },
+    {
+      "day": "d2",
+      "index": 3,
+      "exercise": "DB no cheat curl",
+      "output": "videos/db-no-cheat-curl.mp4",
+      "source": "Day 02/DB no cheat curl.mp4",
+      "match": "exact name",
+      "outputMB": 2.6,
+      "outputSeconds": 23,
+      "crf": 30
+    },
+    {
+      "day": "d2",
+      "index": 4,
+      "exercise": "Rope triceps pushdown",
+      "output": "videos/rope-triceps-pushdown.mp4",
+      "source": "Day 02/Rope triceps pushdown.mp4",
+      "match": "exact name",
+      "outputMB": 15.5,
+      "outputSeconds": 105,
+      "crf": 30
+    },
+    {
+      "day": "d2",
+      "index": 5,
+      "exercise": "Biceps bayesian curl",
+      "output": "videos/biceps-bayesian-curl.mp4",
+      "source": "Day 02/Biceps bayesian curl.mp4",
+      "match": "exact name",
+      "outputMB": 14,
+      "outputSeconds": 115,
+      "crf": 30
+    },
+    {
+      "day": "d2",
+      "index": 6,
+      "exercise": "Rope overhead extension",
+      "output": "videos/rope-overhead-extension.mp4",
+      "source": "Day 02/Rope overhead extension.mp4",
+      "match": "exact name",
+      "outputMB": 20.7,
+      "outputSeconds": 136,
+      "crf": 30
+    },
+    {
+      "day": "d2",
+      "index": 7,
+      "exercise": "Cable hammer curl",
+      "output": "videos/cable-hammer-curl.mp4",
+      "source": "Day 02/Cable hammer curl.mp4",
+      "match": "exact name",
+      "outputMB": 6.8,
+      "outputSeconds": 48,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 1,
+      "exercise": "Seated leg curl",
+      "output": "videos/seated-leg-curl.mp4",
+      "source": "Day 03/Seated leg curl.mp4",
+      "match": "exact name",
+      "outputMB": 9.9,
+      "outputSeconds": 83,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 2,
+      "exercise": "Leg press machine",
+      "output": "videos/leg-press-machine.mp4",
+      "source": "Day 03/Leg press machine.mp4",
+      "match": "exact name",
+      "outputMB": 12.6,
+      "outputSeconds": 106,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 3,
+      "exercise": "Smith hip thrust",
+      "output": "videos/smith-hip-thrust.mp4",
+      "source": "Day 03/Smith hip thrust.mp4",
+      "match": "exact name",
+      "outputMB": 1.5,
+      "outputSeconds": 22,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 4,
+      "exercise": "Adductors machine",
+      "output": "videos/adductors-machine.mp4",
+      "source": "Day 03/Adductors machine.mp4",
+      "match": "exact name",
+      "outputMB": 0.9,
+      "outputSeconds": 27,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 5,
+      "exercise": "Smith standing calf raises",
+      "output": "videos/smith-standing-calf-raises.mp4",
+      "source": "Day 03/Smith standing calf raises.mp4",
+      "match": "exact name",
+      "outputMB": 1.3,
+      "outputSeconds": 31,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 6,
+      "exercise": "Cable lateral raises W.H",
+      "output": "videos/cable-lateral-raises-w-h.mp4",
+      "source": "Day 03/Cable lateral raises W.H.mp4",
+      "match": "exact name",
+      "outputMB": 10.3,
+      "outputSeconds": 98,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 7,
+      "exercise": "Cable torso rotation",
+      "output": "videos/cable-torso-rotation.mp4",
+      "source": "Day 03/Cable torso rotation.mp4",
+      "match": "exact name",
+      "outputMB": 1.1,
+      "outputSeconds": 19,
+      "crf": 30
+    },
+    {
+      "day": "d3",
+      "index": 8,
+      "exercise": "Abdominal crunches",
+      "output": "videos/abdominal-crunches.mp4",
+      "source": "Day 03/Abdominal crunches.mp4",
+      "match": "exact name",
+      "outputMB": 6.5,
+      "outputSeconds": 64,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 1,
+      "exercise": "T bar machine",
+      "output": "videos/t-bar-machine.mp4",
+      "source": "Day 04/T bar machine.mp4",
+      "match": "exact name",
+      "outputMB": 13.5,
+      "outputSeconds": 128,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 2,
+      "exercise": "DB flat press",
+      "output": "videos/db-flat-press.mp4",
+      "source": "Day 04/DB flat press.mp4",
+      "match": "exact name",
+      "outputMB": 10.5,
+      "outputSeconds": 69,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 3,
+      "exercise": "Wide grip latpulldown",
+      "output": "videos/wide-grip-latpulldown.mp4",
+      "source": "Day 04/Wide grip latpulldown.mp4",
+      "match": "exact name",
+      "outputMB": 14.1,
+      "outputSeconds": 119,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 4,
+      "exercise": "Smith incline shoulder press",
+      "output": "videos/smith-incline-shoulder-press.mp4",
+      "source": "Day 04/Smith incline shoulder press.mp4",
+      "match": "exact name",
+      "outputMB": 5.6,
+      "outputSeconds": 60,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 5,
+      "exercise": "Close grip seated row",
+      "output": "videos/close-grip-seated-row.mp4",
+      "source": "Day 04/Close grip seated row.mp4",
+      "match": "exact name",
+      "outputMB": 1.3,
+      "outputSeconds": 24,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 6,
+      "exercise": "Lateral raises machine",
+      "output": "videos/lateral-raises-machine.mp4",
+      "source": "Day 04/Lateral raises machine.mp4",
+      "match": "exact name",
+      "outputMB": 13,
+      "outputSeconds": 104,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 7,
+      "exercise": "DB preacher curl",
+      "output": "videos/db-preacher-curl.mp4",
+      "source": "Day 04/DB preacher curl.mp4",
+      "match": "exact name",
+      "outputMB": 16.6,
+      "outputSeconds": 106,
+      "crf": 30
+    },
+    {
+      "day": "d4",
+      "index": 8,
+      "exercise": "Rope triceps pushdown",
+      "output": "videos/rope-triceps-pushdown.mp4",
+      "source": "Day 04/Rope triceps pushdown.mp4",
+      "match": "exact name",
+      "outputMB": 15.5,
+      "outputSeconds": 105,
+      "crf": 30
+    },
+    {
+      "day": "d5",
+      "index": 1,
+      "exercise": "RDLs",
+      "output": "videos/rdls.mp4",
+      "source": "Day 05/RDLs.mp4",
+      "match": "exact name",
+      "outputMB": 24.4,
+      "outputSeconds": 201,
+      "crf": 30
+    },
+    {
+      "day": "d5",
+      "index": 2,
+      "exercise": "Hack squat machine",
+      "output": "videos/hack-squat-machine.mp4",
+      "source": "Day 05/Hack squat machine.mp4",
+      "match": "exact name",
+      "outputMB": 13.9,
+      "outputSeconds": 118,
+      "crf": 30
+    },
+    {
+      "day": "d5",
+      "index": 3,
+      "exercise": "Leg extension machine",
+      "output": "videos/leg-extension-machine.mp4",
+      "source": "Day 05/Leg extension machine.mp4",
+      "match": "exact name",
+      "outputMB": 1,
+      "outputSeconds": 23,
+      "crf": 30
+    },
+    {
+      "day": "d5",
+      "index": 4,
+      "exercise": "Lying leg curl",
+      "output": "videos/lying-leg-curl.mp4",
+      "source": "Day 05/Lying leg curl.mp4",
+      "match": "exact name",
+      "outputMB": 12.2,
+      "outputSeconds": 97,
+      "crf": 30
+    },
+    {
+      "day": "d5",
+      "index": 5,
+      "exercise": "Adductors machine",
+      "output": "videos/adductors-machine.mp4",
+      "source": "Day 05/Adductors machine.mp4",
+      "match": "exact name",
+      "outputMB": 0.9,
+      "outputSeconds": 27,
+      "crf": 30
+    },
+    {
+      "day": "d5",
+      "index": 6,
+      "exercise": "DB wrist flexion",
+      "output": "videos/db-wrist-flexion.mp4",
+      "source": "Day 05/DB wrist flexion.mp4",
+      "match": "exact name",
+      "outputMB": 4.4,
+      "outputSeconds": 35,
+      "crf": 30
+    },
+    {
+      "day": "d5",
+      "index": 7,
+      "exercise": "Smith standing calf raises",
+      "output": "videos/smith-standing-calf-raises.mp4",
+      "source": "Day 05/Smith standing calf raises.mp4",
+      "match": "exact name",
+      "outputMB": 1.3,
+      "outputSeconds": 31,
+      "crf": 30
+    }
+  ],
+  "duplicatesDropped": [
+    {
+      "path": "Day 03/Abdominal crunches.mp4",
+      "keptAs": "abdominal-crunches",
+      "reason": "identical sha256"
+    },
+    {
+      "path": "Day 04/T bar machine.mp4",
+      "keptAs": "t-bar-machine",
+      "reason": "identical sha256"
+    },
+    {
+      "path": "Day 04/Wide grip latpulldown.mp4",
+      "keptAs": "wide-grip-latpulldown",
+      "reason": "identical sha256"
+    },
+    {
+      "path": "Day 04/Rope triceps pushdown.mp4",
+      "keptAs": "rope-triceps-pushdown",
+      "reason": "identical sha256"
+    },
+    {
+      "path": "Day 05/Adductors machine.mp4",
+      "keptAs": "adductors-machine",
+      "reason": "identical sha256"
+    },
+    {
+      "path": "Day 05/Smith standing calf raises.mp4",
+      "keptAs": "smith-standing-calf-raises",
+      "reason": "identical sha256"
+    }
+  ],
+  "flags": [],
+  "totals": {
+    "rawFiles": 39,
+    "rawMB": 1622.6,
+    "rawExerciseMB": 1462.4,
+    "outputFiles": 33,
+    "outputMB": 362.2,
+    "exerciseFiles": 32,
+    "exerciseMB": 307.5,
+    "introMB": 54.6,
+    "duplicatesDropped": 6,
+    "distMB": 363.8,
+    "distWithoutVideosMB": 0.9,
+    "postersKB": 711
+  }
+}

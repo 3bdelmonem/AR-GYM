@@ -1,0 +1,1184 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Shadad Split 2.0</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* ── Shadad Split 2.0 ──────────────────────────────────────────────
+   Single visual world, deliberately: the coach's own deck is a warm
+   charcoal gym-floor with a vermilion hairline. Painted explicitly so
+   it holds on any host ground; no second theme.                     */
+:root{
+  --ground:#14100E;
+  --ground-2:#0D0A09;
+  --panel:#1D1714;
+  --panel-2:#241D19;
+  --panel-3:#2C2320;
+  --line:#432F27;
+  --line-hot:rgba(240,85,31,.42);
+  --accent:#F0551F;
+  --accent-hi:#FF8347;
+  --accent-dim:rgba(240,85,31,.13);
+  --text:#F4ECE6;
+  --text-2:#C3B3A9;
+  --muted:#8E7D74;
+  --good:#5BC08C;
+  --good-dim:rgba(91,192,140,.14);
+  --calm:#4E9AA8;
+  --calm-dim:rgba(78,154,168,.13);
+  --warn:#E0A33C;
+  --disp:"Barlow Condensed",'Arial Narrow',sans-serif;
+  --body:"IBM Plex Sans Arabic",system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --chamfer:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);
+  --r:4px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--ground);
+  background-image:
+    radial-gradient(120% 70% at 78% -8%,rgba(240,85,31,.10),transparent 62%),
+    radial-gradient(95% 55% at 8% 104%,rgba(78,154,168,.055),transparent 60%);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:var(--body);
+  font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body[dir="rtl"]{--disp:"IBM Plex Sans Arabic",system-ui,sans-serif}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input{font:inherit;color:inherit}
+a{color:var(--accent-hi)}
+:focus-visible{outline:2px solid var(--accent-hi);outline-offset:2px;border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ── shell ─────────────────────────────────────────────────────── */
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:0 132px}
+.topbar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:linear-gradient(var(--ground-2) 72%,rgba(13,10,9,.88));
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{max-width:720px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:baseline;gap:7px;min-width:0}
+.brand b{
+  font-family:var(--disp);font-style:italic;font-weight:800;
+  font-size:22px;letter-spacing:.005em;line-height:1;color:var(--text);
+  white-space:nowrap;
+}
+.brand b i{color:var(--accent);font-style:inherit}
+.brand span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.spacer{flex:1}
+.lang{
+  display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;
+  font-size:11px;letter-spacing:.1em;font-weight:600;flex:none;
+}
+.lang button{padding:5px 11px;color:var(--muted);transition:.15s}
+.lang button[aria-pressed="true"]{background:var(--accent);color:#1A0C06}
+.tabs{display:flex;gap:4px;max-width:720px;margin:0 auto;padding:0 12px 9px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:600;
+  color:var(--muted);white-space:nowrap;border:1px solid transparent;transition:.15s;
+}
+.tab[aria-selected="true"]{color:var(--text);background:var(--panel-2);border-color:var(--line)}
+
+/* ── panels ────────────────────────────────────────────────────── */
+.notch{background:var(--line-hot);padding:1px;clip-path:var(--chamfer)}
+.notch>.in{background:var(--panel);clip-path:var(--chamfer);padding:18px}
+body[dir="rtl"] .notch,body[dir="rtl"] .notch>.in{
+  clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px)
+}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+.sect{margin-top:26px}
+.sect-h{
+  display:flex;align-items:center;gap:10px;margin-bottom:11px;
+}
+.sect-h h2{
+  font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--accent);white-space:nowrap;
+}
+body[dir="rtl"] .sect-h h2{letter-spacing:0;font-size:15px}
+.sect-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.eyebrow{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600}
+body[dir="rtl"] .eyebrow{letter-spacing:0}
+
+/* ── next up hero ──────────────────────────────────────────────── */
+.hero{margin-top:18px}
+.hero .in{padding:20px 18px 18px}
+.hero-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.hero-day{
+  font-family:var(--disp);font-style:italic;font-weight:800;font-size:44px;
+  line-height:.92;letter-spacing:.005em;
+}
+body[dir="rtl"] .hero-day{font-style:normal;font-size:34px;line-height:1.15}
+.hero-day em{color:var(--accent);font-style:inherit}
+.slotpill{
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;
+  color:var(--accent);background:var(--accent-dim);border:1px solid var(--line-hot);
+  padding:4px 9px;border-radius:2px;white-space:nowrap;
+}
+.hero-sum{color:var(--text-2);font-size:13.5px;margin-top:9px}
+.hero-sum b{color:var(--text);font-weight:600}
+.cta{
+  display:flex;align-items:center;justify-content:center;gap:9px;width:100%;
+  margin-top:16px;padding:14px;border-radius:3px;
+  background:var(--accent);color:#180B05;
+  font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.08em;
+  text-transform:uppercase;transition:.15s;
+}
+body[dir="rtl"] .cta{letter-spacing:0;font-size:17px;font-family:var(--body)}
+.cta:hover{background:var(--accent-hi)}
+.cta.ghost{background:transparent;color:var(--text);border:1px solid var(--line-hot)}
+.cta.ghost:hover{background:var(--accent-dim)}
+.cta.calm{background:var(--calm);color:#06181C}
+.cta.calm:hover{filter:brightness(1.12)}
+
+/* ── coach note ────────────────────────────────────────────────── */
+.note{
+  border-inline-start:2px solid var(--line-hot);
+  background:linear-gradient(90deg,var(--accent-dim),transparent 78%);
+  padding:11px 13px;border-radius:0 var(--r) var(--r) 0;
+  font-size:13px;line-height:1.6;color:var(--text-2);
+}
+body[dir="rtl"] .note{
+  background:linear-gradient(270deg,var(--accent-dim),transparent 78%);
+  border-radius:var(--r) 0 0 var(--r);
+}
+.note b{color:var(--text);font-weight:600}
+.note .who{
+  display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:5px;
+}
+body[dir="rtl"] .note .who{letter-spacing:0;font-size:11px}
+.notelist{display:flex;flex-direction:column;gap:9px}
+.notelist li{
+  display:flex;gap:10px;font-size:13.5px;line-height:1.62;color:var(--text-2);
+}
+.notelist li::before{
+  content:"";flex:none;width:5px;height:5px;margin-top:8px;
+  background:var(--accent);transform:rotate(45deg);
+}
+
+/* ── split table ───────────────────────────────────────────────── */
+.split{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.split-row{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel);
+  font-size:14px;transition:.15s;
+}
+.split-row .nm{font-family:var(--disp);font-style:italic;font-weight:700;font-size:19px;letter-spacing:.01em}
+body[dir="rtl"] .split-row .nm{font-style:normal;font-size:15px}
+.split-row .dy{margin-inline-start:auto;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+.split-row .ct{font-size:11.5px;color:var(--muted)}
+.split-row.is-rest{background:var(--panel-2)}
+.split-row.is-rest .nm{color:var(--calm);font-size:15px;font-style:normal;font-family:var(--body);font-weight:600;letter-spacing:.04em}
+.split-row.is-now{background:var(--accent-dim);box-shadow:inset 3px 0 0 var(--accent)}
+body[dir="rtl"] .split-row.is-now{box-shadow:inset -3px 0 0 var(--accent)}
+.split-row.is-now .dy{color:var(--accent)}
+
+/* ── exercise card ─────────────────────────────────────────────── */
+.exlist{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.ex{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.ex.is-done{border-color:rgba(91,192,140,.3)}
+.ex-h{display:flex;align-items:flex-start;gap:11px;padding:13px 14px 11px}
+.ex-n{
+  font-family:var(--disp);font-style:italic;font-weight:800;font-size:17px;
+  color:var(--accent);flex:none;width:22px;line-height:1.35;
+}
+body[dir="rtl"] .ex-n{font-style:normal;font-family:var(--mono);font-size:13px;width:auto}
+.ex-t{flex:1;min-width:0}
+.ex-t h3{font-size:15.5px;font-weight:600;line-height:1.3}
+.ex.is-done .ex-n{color:var(--good)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{
+  font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.02em;
+  padding:3px 7px;border-radius:2px;background:var(--panel-3);color:var(--text-2);
+  white-space:nowrap;border:1px solid transparent;
+}
+.chip.i{cursor:help;border-color:var(--line);color:var(--accent-hi)}
+.chip.i:hover{background:var(--accent-dim)}
+.chip.i::after{content:"ⓘ";margin-inline-start:4px;opacity:.75}
+.vid{
+  flex:none;display:flex;align-items:center;gap:5px;padding:6px 9px;border-radius:2px;
+  background:var(--accent-dim);border:1px solid var(--line-hot);color:var(--accent-hi);
+  font-size:11px;font-weight:600;text-decoration:none;transition:.15s;
+}
+.vid:hover{background:var(--accent);color:#180B05;border-color:var(--accent)}
+.vid.off{background:var(--panel-3);border-color:var(--line);color:var(--muted);cursor:default}
+.vid.on{background:var(--accent);color:#180B05;border-color:var(--accent)}
+.vid svg{display:block}
+
+/* ── inline player ─────────────────────────────────────────────── */
+.player{margin:0 14px 12px}
+.player .fr{
+  position:relative;aspect-ratio:16/9;max-width:100%;background:#000;
+  border:1px solid var(--line-hot);border-radius:var(--r);overflow:hidden;
+}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.player .fb{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:11px;padding:18px;text-align:center;background:var(--panel-2);
+}
+.player .fb p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.player .cap{
+  display:flex;align-items:center;gap:8px;margin-top:7px;
+  font-size:11px;color:var(--muted);
+}
+.player .cap a{color:var(--muted);text-decoration:none;margin-inline-start:auto;
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.player .cap a:hover{color:var(--accent-hi);border-color:var(--line-hot)}
+
+.rows{padding:0 14px 13px;display:flex;flex-direction:column;gap:7px}
+.rowlbl{
+  display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:5px;
+}
+body[dir="rtl"] .rowlbl{letter-spacing:0;font-size:11.5px}
+.rowlbl::after{content:"";flex:1;height:1px;background:var(--line)}
+.setrow{display:flex;align-items:center;gap:7px}
+.setrow .tag{
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--muted);
+  flex:none;width:34px;text-align:center;
+}
+.setrow.wu .tag{color:var(--calm);font-size:9.5px;letter-spacing:.02em}
+.fld{
+  flex:1;min-width:0;display:flex;align-items:center;gap:4px;
+  background:var(--panel-2);border:1px solid var(--line);border-radius:3px;
+  padding:0 8px;height:40px;transition:.15s;
+}
+.fld:focus-within{border-color:var(--accent);background:var(--panel-3)}
+.fld input{
+  width:100%;min-width:0;background:none;border:0;outline:none;
+  font-family:var(--mono);font-size:15px;font-weight:600;
+  font-variant-numeric:tabular-nums;text-align:end;padding:0;
+}
+body[dir="rtl"] .fld input{text-align:start;direction:ltr}
+.fld input::placeholder{color:#5C4C45;font-weight:500}
+.fld u{
+  font-size:10px;text-decoration:none;color:var(--muted);flex:none;
+  letter-spacing:.04em;text-transform:uppercase;font-weight:600;
+}
+.xmark{flex:none;color:var(--muted);font-size:12px;font-family:var(--mono)}
+.tick{
+  flex:none;width:40px;height:40px;border-radius:3px;
+  border:1px solid var(--line);background:var(--panel-2);
+  display:grid;place-items:center;color:var(--muted);transition:.15s;
+}
+.tick:hover{border-color:var(--accent);color:var(--accent)}
+.tick[aria-pressed="true"]{background:var(--good-dim);border-color:rgba(91,192,140,.45);color:var(--good)}
+.last{
+  font-family:var(--mono);font-size:10.5px;color:var(--muted);
+  padding-inline-start:41px;margin-top:-2px;display:flex;align-items:center;gap:6px;
+}
+.last b{color:var(--text-2);font-weight:600}
+.last .up{color:var(--good)}
+
+/* ── cardio / rest ─────────────────────────────────────────────── */
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.kv>div{background:var(--panel-2);padding:10px 12px}
+.kv dt{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+body[dir="rtl"] .kv dt{letter-spacing:0;font-size:11px}
+.kv dd{margin:3px 0 0;font-family:var(--mono);font-size:14px;font-weight:600;color:var(--text)}
+.disc{
+  width:100%;display:flex;align-items:center;gap:8px;padding:11px 13px;
+  font-size:12.5px;font-weight:600;color:var(--text-2);text-align:start;
+  background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);transition:.15s;
+}
+.disc:hover{color:var(--text);border-color:var(--line-hot)}
+.disc .cv{margin-inline-start:auto;color:var(--accent);transition:transform .2s;font-size:11px}
+.disc[aria-expanded="true"] .cv{transform:rotate(180deg)}
+.discbody{padding:13px 4px 2px}
+
+/* ── stats ─────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stats>div{background:var(--panel-2);padding:12px 10px;text-align:center}
+.stats .v{font-family:var(--mono);font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.stats .k{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:4px}
+body[dir="rtl"] .stats .k{letter-spacing:0;font-size:11px}
+
+/* ── history ───────────────────────────────────────────────────── */
+.hist{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.hrow{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);text-align:start;transition:.15s}
+.hrow:hover{border-color:var(--line-hot)}
+.hrow .d{font-family:var(--disp);font-style:italic;font-weight:700;font-size:18px;flex:none}
+body[dir="rtl"] .hrow .d{font-style:normal;font-size:15px;font-family:var(--body);font-weight:600}
+.hrow .m{flex:1;min-width:0;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.hrow .dt{font-size:11.5px;color:var(--text-2);white-space:nowrap}
+.hdet{padding:2px 14px 13px;font-family:var(--mono);font-size:11.5px;color:var(--text-2);display:flex;flex-direction:column;gap:4px}
+.hdet i{color:var(--muted);font-style:normal}
+
+/* ── bottom bar + timer ────────────────────────────────────────── */
+.dock{
+  position:fixed;inset-inline:0;bottom:0;z-index:50;
+  background:linear-gradient(rgba(13,10,9,.6),var(--ground-2) 34%);
+  border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  backdrop-filter:blur(10px);
+}
+.dock-in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.prog{flex:1;min-width:0}
+.prog .t{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:5px}
+.prog .t b{color:var(--text)}
+.bar{height:4px;background:var(--panel-3);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.dock .cta{width:auto;margin:0;padding:12px 20px;font-size:16px;flex:none}
+.timer{
+  position:fixed;inset-inline:0;bottom:0;z-index:60;
+  padding:0 16px calc(env(safe-area-inset-bottom,0px));
+}
+.timer-in{
+  max-width:720px;margin:0 auto 4px;display:flex;align-items:center;gap:12px;
+  background:var(--panel-3);border:1px solid var(--line-hot);border-radius:var(--r);
+  padding:9px 12px;
+}
+.timer .cd{font-family:var(--mono);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--accent)}
+.timer .lb{flex:1;min-width:0;font-size:11.5px;color:var(--text-2)}
+.timer .lb b{display:block;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+body[dir="rtl"] .timer .lb b{letter-spacing:0;font-size:11px}
+.timer button{font-size:12px;font-weight:600;color:var(--muted);padding:6px 10px;border:1px solid var(--line);border-radius:3px}
+.timer button:hover{color:var(--text);border-color:var(--line-hot)}
+.timer.done .cd{color:var(--good)}
+
+/* ── modal ─────────────────────────────────────────────────────── */
+.scrim{position:fixed;inset:0;z-index:80;background:rgba(8,5,4,.74);display:grid;place-items:end center;padding:16px;backdrop-filter:blur(3px)}
+@media(min-width:560px){.scrim{place-items:center}}
+.modal{
+  width:100%;max-width:480px;max-height:84vh;overflow-y:auto;
+  background:var(--panel);border:1px solid var(--line-hot);border-radius:var(--r);
+  padding:20px;
+}
+.modal h3{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+body[dir="rtl"] .modal h3{letter-spacing:0;font-size:17px}
+.modal p{font-size:13.5px;line-height:1.62;color:var(--text-2)}
+.modal .x{margin-top:16px;width:100%;padding:11px;border:1px solid var(--line);border-radius:3px;font-weight:600;font-size:13px;color:var(--text-2)}
+.modal .x:hover{border-color:var(--line-hot);color:var(--text)}
+
+/* ── video card ────────────────────────────────────────────────── */
+.vcard{
+  display:flex;align-items:center;gap:14px;padding:15px;text-decoration:none;
+  background:linear-gradient(120deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line-hot);border-radius:var(--r);transition:.15s;color:var(--text);
+}
+.vcard:hover{background:linear-gradient(120deg,var(--panel-3),var(--panel-2))}
+.play{
+  flex:none;width:46px;height:46px;border-radius:50%;background:var(--accent);
+  display:grid;place-items:center;
+}
+.play::after{content:"";width:0;height:0;border-inline-start:15px solid #180B05;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-inline-start:4px}
+body[dir="rtl"] .play::after{border-inline-start:0;border-inline-end:15px solid #180B05;margin-inline:0 4px}
+.vcard .m{flex:1;min-width:0}
+.vcard .m b{display:block;font-size:14.5px;font-weight:600}
+.vcard .m span{font-size:12px;color:var(--muted)}
+
+.arabic{direction:rtl;text-align:right;font-size:15px;line-height:1.85}
+.foot{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);line-height:1.7}
+.sync{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--muted)}
+.sync.err{color:var(--warn)}
+</style>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <b>SHADAD<i>/</i>SPLIT</b><span>2.0</span>
+    </div>
+    <div class="spacer"></div>
+    <div class="lang" id="lang">
+      <button data-l="en" aria-pressed="true">EN</button>
+      <button data-l="ar" aria-pressed="false">ع</button>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+
+<main class="wrap" id="app"></main>
+<div id="dock"></div>
+<div id="overlay"></div>
+
+<script>
+"use strict";
+/* ════════════════════════════════════════════════════════════════
+   THE PLAN — transcribed from "shadad split 2.0 (optimized version)",
+   slides 6–19. wu = warm-up sets, s = working sets, v = demo video id.
+   ════════════════════════════════════════════════════════════════ */
+const DAYS = {
+  d1:{label:"day 1",ex:[
+    {n:"Cable y raises",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"1-2 min",sec:60,v:"9zhh-aGUrcs"},
+    {n:"Wide grip latpulldown",wu:1,s:3,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"eTy8dMwWptc"},
+    {n:"Kelso shrugs",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"iqXvQKmU-Uk"},
+    {n:"T bar machine",wu:0,s:1,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"JohmkrpUJK4"},
+    {n:"Cable lat pullover",wu:1,s:3,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"ErXQXPzijLk"},
+    {n:"DB lateral raises",wu:1,s:2,reps:"8-10",rir:"1-0",rest:"2-3 min",sec:120,v:"U6-py46Cdnc"},
+    {n:"Cable reverse curl",wu:1,s:1,reps:"8-12",rir:"1-2",rest:"1.5-2 min",sec:90,v:"_cfnX1qsEWw"},
+    {n:"Abdominal crunches",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"1.5-2 min",sec:90,v:"a9czVmDjB0E"}]},
+  d2:{label:"day 2",ex:[
+    {n:"DB low incline chest press",wu:2,s:3,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"ZT78Lf66NXw"},
+    {n:"Chest fly machine",wu:0,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"GWq3xgNzRpk"},
+    {n:"DB no cheat curl",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:null},
+    {n:"Rope triceps pushdown",wu:1,s:3,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"jIKXu_m_WxM"},
+    {n:"Biceps bayesian curl",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"KbSCjlMnuwQ"},
+    {n:"Rope overhead extension",wu:1,s:2,reps:"8-10",rir:"1-0",rest:"1.5-2 min",sec:90,v:"OKoLcDpJGrM"},
+    {n:"Cable hammer curl",wu:0,s:1,reps:"8-10",rir:"1-0",rest:"1.5-2 min",sec:90,v:"1leUFof4BSM"}]},
+  d3:{label:"day 3",ex:[
+    {n:"Seated leg curl",wu:2,s:2,reps:"10-12",rir:"1-0",rest:"2-3 min",sec:120,v:"sEPovssMLqM"},
+    {n:"Leg press machine",wu:2,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"1QlJC8ezMvE"},
+    {n:"Smith hip thrust",wu:1,s:1,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"-C3rQT56iSs"},
+    {n:"Adductors machine",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"EZzpfk62hDA"},
+    {n:"Smith standing calf raises",wu:1,s:3,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"p_T9O2gHwPA"},
+    {n:"Cable lateral raises W.H",wu:1,s:2,reps:"6-10",rir:"1-0",rest:"1.5-2 min",sec:90,v:"YPiH3mkk14E"},
+    {n:"Cable torso rotation",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"1.5-2 min",sec:90,v:"-FWq-UK9FQ8"},
+    {n:"Abdominal crunches",wu:0,s:3,reps:"8-12",rir:"1-0",rest:"1.5-2 min",sec:90,v:"a9czVmDjB0E"}]},
+  d4:{label:"day 4",ex:[
+    {n:"T bar machine",wu:1,s:2,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"JohmkrpUJK4"},
+    {n:"DB flat press",wu:1,s:2,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"XSl_-gRMfbU"},
+    {n:"Wide grip latpulldown",wu:1,s:1,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"eTy8dMwWptc"},
+    {n:"Smith incline shoulder press",wu:0,s:1,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"bhkhKJezbWM"},
+    {n:"Close grip seated row",wu:0,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:null},
+    {n:"Lateral raises machine",wu:1,s:3,reps:"10-12",rir:"1-0",rest:"1.5-2 min",sec:90,v:"2TmJNXAKv6M"},
+    {n:"DB preacher curl",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"1.5-2 min",sec:90,v:"VbW41i0wZek"},
+    {n:"Rope triceps pushdown",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"1.5-2 min",sec:90,v:"G2RWJv6NXzk"}]},
+  d5:{label:"day 5",ex:[
+    {n:"RDLs",wu:2,s:3,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"zoYMNYMk1rM"},
+    {n:"Hack squat machine",wu:1,s:2,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"Rv9546lEiW8"},
+    {n:"Leg extension machine",wu:0,s:3,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"Es1dBdx448g"},
+    {n:"Lying leg curl",wu:0,s:2,reps:"6-10",rir:"1-0",rest:"2-3 min",sec:120,v:"T275UXpIXug"},
+    {n:"Adductors machine",wu:1,s:2,reps:"8-12",rir:"1-0",rest:"2-3 min",sec:120,v:"EZzpfk62hDA"},
+    {n:"DB wrist flexion",wu:1,s:2,reps:"10-12",rir:"1-0",rest:"2-3 min",sec:120,v:"V0qUjgoQNmk"},
+    {n:"Smith standing calf raises",wu:1,s:3,reps:"8-12",rir:"1-0",rest:"1.5-2 min",sec:90,v:"p_T9O2gHwPA"}]}
+};
+const CYCLE=["d1","d2","d3","rest","d4","d5","rest"];
+
+/* ════════════════════════════════════════════════════════════════
+   COACH'S NOTES — every line from slides 2,3,4,5,6,19,20,22.
+   EN as written; AR a full Egyptian-Arabic translation.
+   ════════════════════════════════════════════════════════════════ */
+const C = {
+  about:{
+    h:{en:"About this version",ar:"عن النسخة دي"},
+    ar:["حابب افكرك ان ده النسخة المعدلة من Shadad Split بمجاميع و اختيارات تمارين تناسب اغلبكم و تساعدك انك تتطور عليها",
+        "و ده فيديو شرح اكتر من ٢٠ دقيقة بشرحلك فيه السبليت و ازاي تصمم جدول تدريبي بالنظام ده بناءً علي نقاط ضعفك"],
+    en:["Just a reminder — this is the updated version of the Shadad Split, with set volumes and exercise choices that suit most of you and help you keep progressing on it.",
+        "And here's a video, more than 20 minutes, where I break down the split and show you how to build a training plan on this system based on your own weak points."]
+  },
+  intro:{
+    h:{en:"Introduction",ar:"مقدمة"},
+    en:["My goal is to help you grow natty, stay consistent, and keep your results long-term, not just get them once and lose them later",
+        "I also want you to learn how to train on your own. Even after your subscription ends, you can still send me your plan to review and I'll make sure you're heading in the right direction.",
+        "If you wanna share your plan with friends, go ahead, Just remember it's customized for you, so it might not fit them the same way."],
+    ar:["هدفي اني اساعدك تكبر ناتشورال، وتفضل ثابت علي النظام، وتحافظ علي النتايج علي المدي الطويل، مش بس توصلها مرة وبعدين تضيع منك",
+        "كمان عايزك تتعلم تتمرن لوحدك. حتي بعد ما الاشتراك بتاعك يخلص، تقدر تبعتلي الجدول بتاعك اراجعهولك واتأكد انك ماشي في الاتجاه الصح.",
+        "ولو عايز تشارك الجدول مع صحابك، ولا يهمك. بس افتكر انه متظبط عليك انت، يبقي ممكن ميناسبهمش بنفس الشكل."]
+  },
+  gloss:{
+    h:{en:"Glossary",ar:"المصطلحات"},
+    items:[
+      {k:"wu",t:{en:"Warming up sets",ar:"مجاميع الاحماء"},
+       d:{en:"Light weight, get your body ready, not included in your weekly volume. You'll see them written as W.U Sets",
+          ar:"وزن خفيف، تجهز بيه جسمك، ومش محسوبة في الفوليوم الاسبوعي بتاعك. هتلاقيها مكتوبة W.U Sets"}},
+      {k:"ws",t:{en:"Working sets",ar:"المجاميع الفعلية"},
+       d:{en:"These are the actual working sets counted in your training volume for the plan, warm-up sets don't count at all",
+          ar:"دي المجاميع الحقيقية اللي بتتحسب في فوليوم التمرين في الجدول، ومجاميع الاحماء مش بتتحسب خالص"}},
+      {k:"bo",t:{en:"Back off sets",ar:"الـ Back off sets"},
+       d:{en:"If you see them in your plan, it means on your last set, drop the weight by 15-20% and go all the way to failure.",
+          ar:"لو لقيتها في الجدول بتاعك، معناها ان في اخر مجموعة تنزّل الوزن ١٥-٢٠٪ وتروح للفشل علي الاخر."}},
+      {k:"rir",t:{en:"RIR",ar:"الـ RIR"},
+       d:{en:"how many reps you've got left in the tank before hitting failure. Basically, how many reps you could still do before you literally can't move the weight anymore.",
+          ar:"كام عدة لسه فاضلة معاك قبل ما توصل للفشل. يعني ببساطة كام عدة كنت لسه تقدر تعملها قبل ما الوزن ميتحركش معاك خالص."}},
+      {k:"su",t:{en:"Supersets",ar:"الـ Supersets"},
+       d:{en:"two exercises back-to-back with zero rest.",ar:"تمرينين ورا بعض من غير راحة خالص."}},
+      {k:"pr",t:{en:"Partials reps",ar:"الـ Partials reps"},
+       d:{en:"short-range reps after you hit failure. If you can't do full range reps anymore, keep pushing halves or quarters until the weight doesn't move, only do this if I specifically ask for it.",
+          ar:"عدات بمدي حركة قصير بعد ما توصل للفشل. لو مبقتش قادر تعمل عدات بمدي كامل، كمّل نص عدة او ربع عدة لحد ما الوزن ميتحركش، وماتعملش ده غير لما اقولك عليه بالتحديد."}}
+    ]
+  },
+  tips:{
+    h:{en:"Tips",ar:"نصايح"},
+    items:[
+      {k:"warm",en:"Take your warm-up sets slow no rushing. Stick to the same rep range as your main lift, just lighter weights",
+       ar:"خد مجاميع الاحماء بتاعتك بالراحة من غير استعجال. التزم بنفس عدد العدات بتاع التمرين الاساسي، بس بأوزان اخف"},
+      {k:"film",en:"Record one set per exercise and send it on check-in day, just to make sure your form's right.",
+       ar:"صوّر مجموعة واحدة من كل تمرين وابعتهالي يوم الـ check-in، عشان بس نتأكد ان الفورم بتاعك صح."},
+      {k:"load",en:"Pick weights that challenge you but still let you hit your reps with clean form. If you're flying past the rep range, it's too light",
+       ar:"اختار اوزان تتحداك بس برضه تخليك تكمّل العدات بفورم نضيف. لو بتعدّي الـ rep range بسهولة، يبقي الوزن خفيف عليك"},
+      {k:"stick",en:"Stick to your program, exercise selection and order stop switching things up every week. Real gains happen when your body starts adapting",
+       ar:"التزم بالبرنامج بتاعك، باختيار التمارين وترتيبهم، وبطل تغيّر كل اسبوع. النتايج الحقيقية بتيجي لما جسمك يبدأ يتأقلم"},
+      {k:"rest",en:"Rest days matter, even if you feel good, Take a rest.",
+       ar:"ايام الراحة مهمة، حتي لو حاسس انك كويس، خد راحة."},
+      {k:"log",en:"Log your weights and reps. Don't say “I'll remember them” — you won't",
+       ar:"سجّل الاوزان والعدات بتاعتك. ماتقولش “هافتكرهم” — مش هتفتكرهم"}
+    ]
+  },
+  split:{
+    h:{en:"Training split",ar:"تقسيمة التمرين"},
+    en:["Your training program doesn't have to fit perfectly into 7 days – forget the idea of a “weekly” schedule.",
+        "It's totally fine if your cycle takes 8 or even 9 days.",
+        "What matters most is that you follow the plan in the given order exactly as it's written."],
+    ar:["البرنامج بتاعك مش لازم يتظبط بالظبط علي ٧ ايام – انسي فكرة الجدول “الاسبوعي”.",
+        "عادي جدا لو الدورة بتاعتك خدت ٨ او حتي ٩ ايام.",
+        "الاهم من ده كله انك تمشي علي الجدول بالترتيب اللي مكتوب بالظبط."]
+  },
+  cardio:{
+    h:{en:"Cardio",ar:"الكارديو"},
+    when:{en:"Post-workout",ar:"بعد التمرين"},
+    type:{en:"Treadmill",ar:"مشاية"},
+    dur:{en:"20",ar:"٢٠"},
+    notes:{en:"speed 4 incline 10",ar:"سرعة ٤ ميلان ١٠"},
+    lbl:{when:{en:"When",ar:"امتي"},type:{en:"Type",ar:"النوع"},dur:{en:"Duration",ar:"المدة"},notes:{en:"Notes",ar:"ملاحظات"}},
+    stepsH:{en:"Daily steps",ar:"الخطوات اليومية"},
+    steps:{en:"You can track your daily steps using the training app on your iPhone, or any app you can download from the App Store or Google Play, or you can track it through your Apple Watch.",
+           ar:"تقدر تتابع خطواتك اليومية من تطبيق التمرين اللي علي الايفون، او اي تطبيق تنزله من الـ App Store او Google Play، او تتابعها من الـ Apple Watch بتاعتك."},
+    noTarget:{en:"No step target set in the plan",ar:"مفيش هدف خطوات محدد في الخطة"}
+  },
+  mistakes:{
+    h:{en:"Cardio mistakes I don't want you to make",ar:"غلطات في الكارديو مش عايزك تعملها"},
+    en:["Don't say “I'll save time and do cardio before my workout” just to finish faster — that's not the goal.",
+        "Don't skip your cardio and say “I'll make it up tomorrow” — it doesn't work that way.",
+        "Don't hold onto the treadmill handles while it's on an incline — that reduces the effort, tricks your body, and lowers the intensity I want from you."],
+    ar:["ماتقولش “هاوفر وقت واعمل الكارديو قبل التمرين” عشان بس تخلص بدري — مش ده الهدف.",
+        "ماتسيبش الكارديو وتقول “هاعوّضه بكره” — الموضوع مش ماشي كده.",
+        "ماتمسكش في مساكة المشاية وهي مايلة — ده بيقلل المجهود، وبيضحك علي جسمك، وبينزّل الشدة اللي انا عايزها منك."]
+  },
+  closing:{
+    h:{en:"I'm confident you can do it",ar:"انا واثق انك تقدر"},
+    en:["You've got a solid training program, everything you need is right here.",
+        "A plan built just for you, Now it's all about your consistency, stay locked in, and those transformation pics are gonna hit hard soon"],
+    ar:["معاك برنامج تدريبي قوي، وكل اللي محتاجه موجود هنا.",
+        "جدول متعمل مخصوص ليك، ودلوقتي الموضوع كله علي الالتزام بتاعك، فضل ثابت، وصور الترانسفورميشن هتبقي مولعة قريب"]
+  }
+};
+
+/* ── UI strings ─────────────────────────────────────────────────── */
+const T={
+  today:{en:"Today",ar:"النهاردة"},guide:{en:"Guide",ar:"الدليل"},history:{en:"History",ar:"السجل"},
+  nextup:{en:"Next up",ar:"الجاي"},inprog:{en:"In progress",ar:"شغال دلوقتي"},
+  start:{en:"Start workout",ar:"ابدأ التمرين"},resume:{en:"Resume workout",ar:"كمّل التمرين"},
+  finish:{en:"Finish workout",ar:"انهي التمرين"},restday:{en:"Rest day",ar:"يوم راحة"},
+  markrest:{en:"Mark rest day done",ar:"سجّل يوم الراحة"},
+  slot:{en:"Day",ar:"يوم"},of:{en:"of",ar:"من"},
+  exs:{en:"exercises",ar:"تمارين"},wsets:{en:"working sets",ar:"مجموعة فعلية"},
+  wu:{en:"W.U sets",ar:"مجاميع احماء"},work:{en:"Working sets",ar:"المجاميع الفعلية"},
+  rir:{en:"RIR",ar:"RIR"},rest:{en:"Rest",ar:"راحة"},reps:{en:"reps",ar:"عدة"},
+  watch:{en:"Watch",ar:"الفيديو"},novid:{en:"No demo",ar:"مفيش فيديو"},
+  hide:{en:"Hide",ar:"اقفل"},
+  novidmsg:{en:"The plan doesn't include a demo video for this exercise.",ar:"الخطة مفيهاش فيديو للتمرين ده."},
+  coachdemo:{en:"Coach's demo",ar:"شرح الكوتش"},
+  openyt:{en:"Open on YouTube",ar:"افتحه على يوتيوب"},
+  blocked:{en:"The player can't load inside the app here.",ar:"المشغّل مش راضي يشتغل جوه التطبيق هنا."},
+  lasttime:{en:"Last",ar:"اخر مرة"},
+  sets:{en:"Sets",ar:"المجاميع"},volume:{en:"Volume",ar:"الحمل الكلي"},time:{en:"Time",ar:"الوقت"},
+  done:{en:"Done",ar:"تم"},skip:{en:"Skip",ar:"تخطي"},resting:{en:"Rest timer",ar:"عداد الراحة"},
+  golift:{en:"Go",ar:"يلا"},
+  cardiodone:{en:"Cardio done",ar:"خلصت الكارديو"},
+  minutes:{en:"min",ar:"دقيقة"},
+  close:{en:"Close",ar:"اقفل"},
+  watchintro:{en:"Watch the split breakdown",ar:"اتفرج علي شرح السبليت"},
+  introsub:{en:"20+ min · YouTube",ar:"اكتر من ٢٠ دقيقة · يوتيوب"},
+  nohist:{en:"Nothing logged yet. Your finished workouts land here.",ar:"لسه مفيش حاجة متسجلة. التمارين اللي بتخلصها هتظهر هنا."},
+  firstlog:{en:"First log",ar:"اول تسجيل"},
+  sessions:{en:"workouts logged",ar:"تمرين متسجل"},
+  progress:{en:"logged",ar:"متسجل"},
+  cyclepos:{en:"Cycle position",ar:"مكانك في الدورة"},
+  savedlocal:{en:"Saved on this device only",ar:"متحفظ علي الجهاز ده بس"},
+  saved:{en:"Synced",ar:"متحفظ"},
+  saving:{en:"Saving…",ar:"بيحفظ…"},
+  quota:{en:"Storage is full — delete some old workouts to log new ones.",ar:"المساحة اتملت — امسح تمارين قديمة عشان تسجل جديد."},
+  wrote:{en:"Great work. Logged.",ar:"شغل جامد. اتسجل."},
+  srcnote:{en:"Transcribed from “shadad split 2.0 (optimized version)” — slides 2–22. Exercise videos link to the coach's own demos.",
+           ar:"منقول من “shadad split 2.0 (optimized version)” — سلايد ٢ لـ ٢٢. فيديوهات التمارين بتفتح شرح الكوتش نفسه."},
+  unit:{en:"Unit",ar:"الوحدة"}
+};
+
+/* ════════════════════════════════════════════════════════════════
+   State
+   ════════════════════════════════════════════════════════════════ */
+const S={lang:"en",unit:"kg",view:"today",cycleIndex:0,active:null,sessions:[],
+         uid:null,db:null,status:"",open:{},timer:null,player:null};
+const LS="shadad_split_v1";
+const t=k=>(T[k]&&T[k][S.lang])||"";
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num=v=>{const n=parseFloat(String(v).replace(",","."));return isFinite(n)?n:0;};
+const $=(s,r=document)=>r.querySelector(s);
+
+function lsRead(){try{return JSON.parse(localStorage.getItem(LS)||"null")}catch(e){return null}}
+function lsWrite(){try{localStorage.setItem(LS,JSON.stringify(
+  {lang:S.lang,unit:S.unit,cycleIndex:S.cycleIndex,active:S.active,sessions:S.sessions.slice(0,60),v:1}))}catch(e){}}
+
+/* ── plan helpers ───────────────────────────────────────────────── */
+const slotKey=i=>CYCLE[((i%7)+7)%7];
+const slotNo=i=>(((i%7)+7)%7)+1;
+const dayOf=k=>DAYS[k]||null;
+function blankEntries(k){
+  const d=dayOf(k);if(!d)return{};
+  const o={};
+  d.ex.forEach((e,i)=>{
+    o[i]={w:Array.from({length:e.wu},()=>({kg:"",r:"",d:false})),
+          s:Array.from({length:e.s},()=>({kg:"",r:"",d:false}))};
+  });
+  return o;
+}
+function totals(a){
+  if(!a)return{done:0,all:0,vol:0};
+  const d=dayOf(a.dayKey);let done=0,all=0,vol=0;
+  if(d)d.ex.forEach((e,i)=>{
+    const en=a.e[i];if(!en)return;
+    all+=e.s;
+    en.s.forEach(st=>{if(st.d){done++;vol+=num(st.kg)*num(st.r);}});
+  });
+  return{done,all,vol};
+}
+/* most recent logged set for an exercise, by name */
+function lastFor(name,exceptId){
+  for(const s of S.sessions){
+    if(exceptId&&s.id===exceptId)continue;
+    const hit=(s.ex||[]).find(x=>x.n===name&&(x.s||[]).some(v=>v.d));
+    if(hit){
+      const sets=hit.s.filter(v=>v.d);
+      if(sets.length)return{sets,when:s.finishedAt};
+    }
+  }
+  return null;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Persistence — db when the viewer has it, localStorage always
+   ════════════════════════════════════════════════════════════════ */
+let wq=Promise.resolve(),aTimer=null;
+const col=()=>S.db&&S.uid?S.db.collection("data/users/"+S.uid):null;
+function setStatus(s,err){S.status=s;const n=$("#sync");if(n){n.textContent=s;n.className="sync"+(err?" err":"");}}
+function dbErr(e){
+  const c=e&&e.code;
+  if(c==="quota_exceeded"){setStatus(t("quota"),true);return;}
+  if(c==="not_granted"||c==="capability_disabled"||c==="revoked"){S.db=null;setStatus(t("savedlocal"));return;}
+  setStatus(t("savedlocal"),true);
+}
+function queue(fn){wq=wq.then(fn).catch(dbErr);return wq;}
+function saveState(){
+  lsWrite();const c=col();if(!c)return;
+  queue(()=>c.doc("state").set({kind:"state",cycleIndex:S.cycleIndex,lang:S.lang,unit:S.unit,at:Date.now()})
+    .then(()=>setStatus(t("saved"))));
+}
+function saveActive(now){
+  lsWrite();
+  const c=col();if(!c)return;
+  clearTimeout(aTimer);
+  const go=()=>queue(()=>{
+    setStatus(t("saving"));
+    return (S.active?c.doc("active").set(Object.assign({kind:"active"},S.active))
+                    :c.doc("active").delete()).then(()=>setStatus(t("saved")));
+  });
+  now?go():aTimer=setTimeout(go,1100);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Rendering
+   ════════════════════════════════════════════════════════════════ */
+const ICON_PLAY='<svg width="9" height="10" viewBox="0 0 9 10" aria-hidden="true"><path d="M0 0l9 5-9 5z" fill="currentColor"/></svg>';
+const ICON_CHK='<svg width="15" height="12" viewBox="0 0 15 12" aria-hidden="true"><path d="M1.5 6.2l4 4L13.5 1.5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function noteBlock(txt,who){
+  return '<div class="note">'+(who?'<span class="who">'+esc(who)+'</span>':'')+esc(txt)+'</div>';
+}
+function bullets(arr){
+  return '<ul class="notelist">'+arr.map(x=>'<li><span>'+esc(x)+'</span></li>').join("")+'</ul>';
+}
+function sectionH(title){
+  return '<div class="sect-h"><h2>'+esc(title)+'</h2></div>';
+}
+/* The coach's own demos, played through YouTube's embedded player so the
+   app never has to hand you off to youtube.com. Nothing is re-hosted. */
+function playerBlock(vid,name,pad){
+  const url="https://www.youtube.com/watch?v="+vid;
+  return '<div class="player"'+(pad?' style="margin:0"':'')+'>'+
+    '<div class="fr"><iframe data-check="1" loading="lazy" '+
+      'src="https://www.youtube-nocookie.com/embed/'+esc(vid)+'?rel=0&amp;modestbranding=1&amp;playsinline=1" '+
+      'title="'+esc(name)+'" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" '+
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>'+
+    '<div class="cap"><span>'+esc(t("coachdemo"))+'</span>'+
+      '<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(t("openyt"))+' ↗</a></div></div>';
+}
+/* A CSP-blocked frame still fires `load`, but stays same-origin on
+   about:blank — a cross-origin throw is the proof it really loaded. */
+function checkFrames(){
+  document.querySelectorAll('.player iframe[data-check]').forEach(fr=>{
+    fr.removeAttribute("data-check");
+    let settled=false;
+    const verdict=()=>{
+      if(settled||!fr.isConnected)return;settled=true;
+      let blocked=false;
+      try{blocked=fr.contentWindow.location.href==="about:blank";}catch(e){blocked=false;}
+      if(!blocked)return;
+      const box=fr.parentNode,link=box.parentNode.querySelector(".cap a");
+      box.innerHTML='<div class="fb"><p>'+esc(t("blocked"))+'</p>'+
+        '<a class="vid" href="'+esc(link?link.getAttribute("href"):"https://www.youtube.com")+
+        '" target="_blank" rel="noopener">'+ICON_PLAY+esc(t("openyt"))+'</a></div>';
+    };
+    fr.addEventListener("load",()=>setTimeout(verdict,200));
+    setTimeout(verdict,5000);
+  });
+}
+
+/* ── TODAY ──────────────────────────────────────────────────────── */
+function viewToday(){
+  const k=S.active?S.active.dayKey:slotKey(S.cycleIndex);
+  const no=S.active?S.active.slot:slotNo(S.cycleIndex);
+  const isRest=k==="rest";
+  let h="";
+
+  /* hero */
+  const d=dayOf(k);
+  h+='<section class="notch hero"><div class="in">';
+  h+='<div class="hero-top">';
+  h+='<div style="flex:1;min-width:0"><div class="eyebrow">'+esc(S.active?t("inprog"):t("nextup"))+'</div>';
+  if(isRest){
+    h+='<div class="hero-day" style="color:var(--calm)">'+esc(t("restday"))+'</div>';
+  }else{
+    const parts=d.label.split(" ");
+    h+='<div class="hero-day">'+esc(parts[0])+' <em>'+esc(parts[1]||"")+'</em></div>';
+  }
+  h+='</div><div class="slotpill">'+esc(t("slot"))+' '+no+' / 7</div></div>';
+
+  if(isRest){
+    h+='<div style="margin-top:14px">'+noteBlock(C.tips.items[4][S.lang],"Coach")+'</div>';
+    h+='<button class="cta calm" data-a="restdone">'+esc(t("markrest"))+'</button>';
+  }else{
+    const tt=totals(S.active);
+    const ws=d.ex.reduce((a,e)=>a+e.s,0);
+    h+='<p class="hero-sum"><b>'+d.ex.length+'</b> '+esc(t("exs"))+' · <b>'+ws+'</b> '+esc(t("wsets"))+'</p>';
+    h+='<button class="cta" data-a="'+(S.active?"go":"start")+'">'+esc(S.active?t("resume"):t("start"))+
+       (S.active?' <span style="font-family:var(--mono);font-size:14px">'+tt.done+'/'+tt.all+'</span>':'')+'</button>';
+  }
+  h+='</div></section>';
+
+  /* first-log nudge — slide 4 */
+  if(!S.sessions.length){
+    h+='<div style="margin-top:12px">'+noteBlock(C.tips.items[5][S.lang],t("firstlog"))+'</div>';
+  }
+
+  /* split — slide 6 */
+  h+='<section class="sect">'+sectionH(C.split.h[S.lang]);
+  h+='<div style="margin-bottom:12px">'+bullets(C.split[S.lang])+'</div>';
+  h+='<div class="split">';
+  CYCLE.forEach((ck,i)=>{
+    const dd=dayOf(ck),now=i===(((S.cycleIndex%7)+7)%7);
+    h+='<div class="split-row'+(ck==="rest"?" is-rest":"")+(now?" is-now":"")+'">';
+    h+='<span class="nm">'+esc(dd?dd.label:t("restday"))+'</span>';
+    if(dd)h+='<span class="ct">'+dd.ex.length+' '+esc(t("exs"))+'</span>';
+    h+='<span class="dy">'+esc(t("slot")).toUpperCase()+' '+(i+1)+'</span></div>';
+  });
+  h+='</div></section>';
+
+  /* daily steps — slide 19 */
+  h+='<section class="sect">'+sectionH(C.cardio.stepsH[S.lang]);
+  h+='<div class="card" style="padding:14px"><p style="font-family:var(--mono);font-size:13px;color:var(--muted)">— '+
+     esc(C.cardio.noTarget[S.lang])+'</p><p style="margin-top:9px;font-size:13px;line-height:1.62;color:var(--text-2)">'+
+     esc(C.cardio.steps[S.lang])+'</p></div></section>';
+
+  /* recent */
+  if(S.sessions.length){
+    h+='<section class="sect">'+sectionH(T.history[S.lang]);
+    h+='<div class="stats">';
+    h+='<div><div class="v">'+S.sessions.length+'</div><div class="k">'+esc(t("sessions"))+'</div></div>';
+    const tv=S.sessions.reduce((a,s)=>a+(s.vol||0),0);
+    h+='<div><div class="v">'+Math.round(tv/1000)+'k</div><div class="k">'+esc(t("volume"))+' '+S.unit+'</div></div>';
+    const ts=S.sessions.reduce((a,s)=>a+(s.setsDone||0),0);
+    h+='<div><div class="v">'+ts+'</div><div class="k">'+esc(t("sets"))+'</div></div>';
+    h+='</div>';
+    h+='<div class="hist">'+S.sessions.slice(0,3).map(histRow).join("")+'</div></section>';
+  }
+  h+=foot();
+  return h;
+}
+
+/* ── WORKOUT ────────────────────────────────────────────────────── */
+function viewWorkout(){
+  const a=S.active;if(!a)return viewToday();
+  const d=dayOf(a.dayKey);let h="";
+  const parts=d.label.split(" ");
+  h+='<section class="notch hero"><div class="in" style="padding:16px 18px">';
+  h+='<div class="hero-top"><div style="flex:1"><div class="eyebrow">'+esc(t("inprog"))+'</div>';
+  h+='<div class="hero-day" style="font-size:34px">'+esc(parts[0])+' <em>'+esc(parts[1]||"")+'</em></div></div>';
+  h+='<div class="slotpill">'+esc(t("slot"))+' '+a.slot+' / 7</div></div></div></section>';
+
+  h+='<div class="exlist">';
+  d.ex.forEach((e,i)=>{h+=exCard(e,i,a.e[i]||{w:[],s:[]});});
+  h+='</div>';
+
+  /* cardio — slides 19 + 20 */
+  h+='<section class="sect">'+sectionH(C.cardio.h[S.lang]);
+  h+='<div class="card" style="padding:14px">';
+  h+='<dl class="kv">';
+  h+='<div><dt>'+esc(C.cardio.lbl.when[S.lang])+'</dt><dd>'+esc(C.cardio.when[S.lang])+'</dd></div>';
+  h+='<div><dt>'+esc(C.cardio.lbl.type[S.lang])+'</dt><dd>'+esc(C.cardio.type[S.lang])+'</dd></div>';
+  h+='<div><dt>'+esc(C.cardio.lbl.dur[S.lang])+'</dt><dd>'+esc(C.cardio.dur[S.lang])+' '+esc(t("minutes"))+'</dd></div>';
+  h+='<div><dt>'+esc(C.cardio.lbl.notes[S.lang])+'</dt><dd>'+esc(C.cardio.notes[S.lang])+'</dd></div>';
+  h+='</dl>';
+  h+='<div class="setrow" style="margin-top:12px">';
+  h+='<span class="tag">min</span>';
+  h+='<div class="fld"><input id="cardio-min" inputmode="numeric" placeholder="20" value="'+esc(a.cardio.min)+'" data-c="min" aria-label="'+esc(C.cardio.lbl.dur[S.lang])+'"><u>'+esc(t("minutes"))+'</u></div>';
+  h+='<button class="tick" data-c="done" aria-pressed="'+(a.cardio.done?"true":"false")+'" aria-label="'+esc(t("cardiodone"))+'">'+ICON_CHK+'</button>';
+  h+='</div>';
+  h+='<div style="margin-top:12px"><button class="disc" data-d="mistakes" aria-expanded="'+(S.open.mistakes?"true":"false")+'">'+
+     esc(C.mistakes.h[S.lang])+'<span class="cv">▼</span></button>';
+  if(S.open.mistakes)h+='<div class="discbody">'+bullets(C.mistakes[S.lang])+'</div>';
+  h+='</div></div></section>';
+  h+=foot();
+  return h;
+}
+
+function exCard(e,i,en){
+  const allDone=en.s.length&&en.s.every(s=>s.d);
+  let h='<article class="ex'+(allDone?" is-done":"")+'">';
+  h+='<div class="ex-h"><span class="ex-n">'+(i+1)+'</span><div class="ex-t"><h3>'+esc(e.n)+'</h3><div class="chips">';
+  if(e.wu)h+='<button class="chip i" data-i="wu">W.U ×'+e.wu+'</button>';
+  h+='<button class="chip i" data-i="ws">'+e.s+' × '+esc(e.reps)+' '+esc(t("reps"))+'</button>';
+  h+='<button class="chip i" data-i="rir">RIR '+esc(e.rir)+'</button>';
+  h+='<span class="chip">'+esc(t("rest"))+' '+esc(e.rest)+'</span>';
+  h+='</div></div>';
+  const pk="ex-"+i,on=S.player===pk;
+  h+=e.v?'<button class="vid'+(on?" on":"")+'" data-pv="'+pk+'" data-vid="'+esc(e.v)+'" aria-expanded="'+
+          (on?"true":"false")+'">'+ICON_PLAY+esc(on?t("hide"):t("watch"))+'</button>'
+        :'<button class="vid off" data-i="novid">'+esc(t("novid"))+'</button>';
+  h+='</div>';
+  if(on&&e.v)h+=playerBlock(e.v,e.n);
+  h+='<div class="rows">';
+
+  if(en.w.length){
+    h+='<div class="rowlbl">'+esc(t("wu"))+'</div>';
+    h+='<div style="margin:2px 0 6px">'+noteBlock(C.tips.items[0][S.lang],"Coach")+'</div>';
+    en.w.forEach((st,j)=>{h+=setRow(e,i,j,st,true);});
+  }
+  h+='<div class="rowlbl">'+esc(t("work"))+'</div>';
+  const last=lastFor(e.n);
+  en.s.forEach((st,j)=>{
+    h+=setRow(e,i,j,st,false);
+    const L=last&&last.sets[j];
+    if(L)h+='<div class="last"><span>'+esc(t("lasttime"))+'</span> <b>'+esc(L.kg)+S.unit+' × '+esc(L.r)+'</b></div>';
+  });
+  if(last)h+='<div style="margin-top:8px">'+noteBlock(C.tips.items[2][S.lang],"Coach")+'</div>';
+  h+='</div></article>';
+  return h;
+}
+function setRow(e,i,j,st,isWu){
+  const p=isWu?"w":"s",id="f-"+p+i+"-"+j;
+  return '<div class="setrow'+(isWu?" wu":"")+'">'+
+    '<span class="tag">'+(isWu?"W.U "+(j+1):(j+1))+'</span>'+
+    '<div class="fld"><input id="'+id+'-kg" inputmode="decimal" placeholder="0" value="'+esc(st.kg)+
+      '" data-x="'+i+'" data-p="'+p+'" data-j="'+j+'" data-f="kg" aria-label="weight"><u>'+S.unit+'</u></div>'+
+    '<span class="xmark">×</span>'+
+    '<div class="fld" style="max-width:88px"><input id="'+id+'-r" inputmode="numeric" placeholder="'+esc(e.reps)+
+      '" value="'+esc(st.r)+'" data-x="'+i+'" data-p="'+p+'" data-j="'+j+'" data-f="r" aria-label="reps"></div>'+
+    '<button class="tick" data-x="'+i+'" data-p="'+p+'" data-j="'+j+'" aria-pressed="'+(st.d?"true":"false")+
+      '" aria-label="'+esc(t("done"))+'">'+ICON_CHK+'</button></div>';
+}
+
+/* ── GUIDE ──────────────────────────────────────────────────────── */
+function viewGuide(){
+  let h="";
+  /* 1 — about this version (slide 5) + intro video */
+  h+='<section class="sect" style="margin-top:18px">'+sectionH(C.about.h[S.lang]);
+  h+='<div class="notch"><div class="in">';
+  h+=C.about[S.lang].map((p,n)=>'<p class="'+(S.lang==="ar"?"arabic":"")+'" style="'+(n?"margin-top:12px;":"")+
+     'font-size:14.5px;line-height:1.75;color:var(--text-2)">'+esc(p)+'</p>').join("");
+  h+='</div></div>';
+  if(S.player==="intro"){
+    h+='<div style="margin-top:12px">'+playerBlock("D9Cpy3V9Mek",t("watchintro"),true)+'</div>';
+  }else{
+    h+='<button class="vcard" style="margin-top:12px;width:100%;text-align:start" data-pv="intro" data-vid="D9Cpy3V9Mek">'+
+       '<span class="play"></span><span class="m"><b>'+esc(t("watchintro"))+'</b><span>'+esc(t("introsub"))+'</span></span></button>';
+  }
+  h+='</section>';
+
+  /* 2 — introduction (slide 2) */
+  h+='<section class="sect">'+sectionH(C.intro.h[S.lang])+bullets(C.intro[S.lang])+'</section>';
+
+  /* 3 — glossary (slide 3) */
+  h+='<section class="sect">'+sectionH(C.gloss.h[S.lang])+'<div style="display:flex;flex-direction:column;gap:9px">';
+  C.gloss.items.forEach(it=>{
+    h+='<div class="card" style="padding:12px 14px"><b style="font-size:13.5px;color:var(--accent-hi)">'+
+       esc(it.t[S.lang])+'</b><p style="margin-top:5px;font-size:13.5px;line-height:1.62;color:var(--text-2)">'+
+       esc(it.d[S.lang])+'</p></div>';
+  });
+  h+='</div></section>';
+
+  /* 4 — tips (slide 4) */
+  h+='<section class="sect">'+sectionH(C.tips.h[S.lang])+
+     bullets(C.tips.items.map(x=>x[S.lang]))+'</section>';
+
+  /* 5 — training split (slide 6) */
+  h+='<section class="sect">'+sectionH(C.split.h[S.lang])+bullets(C.split[S.lang]);
+  h+='<div class="split" style="margin-top:12px">';
+  CYCLE.forEach((ck,i)=>{
+    const dd=dayOf(ck);
+    h+='<div class="split-row'+(ck==="rest"?" is-rest":"")+'"><span class="nm">'+
+       esc(dd?dd.label:t("restday"))+'</span>'+(dd?'<span class="ct">'+dd.ex.length+' '+esc(t("exs"))+'</span>':'')+
+       '<span class="dy">'+esc(t("slot")).toUpperCase()+' '+(i+1)+'</span></div>';
+  });
+  h+='</div></section>';
+
+  /* 6 — cardio (slide 19) */
+  h+='<section class="sect">'+sectionH(C.cardio.h[S.lang]);
+  h+='<dl class="kv">';
+  h+='<div><dt>'+esc(C.cardio.lbl.when[S.lang])+'</dt><dd>'+esc(C.cardio.when[S.lang])+'</dd></div>';
+  h+='<div><dt>'+esc(C.cardio.lbl.type[S.lang])+'</dt><dd>'+esc(C.cardio.type[S.lang])+'</dd></div>';
+  h+='<div><dt>'+esc(C.cardio.lbl.dur[S.lang])+'</dt><dd>'+esc(C.cardio.dur[S.lang])+' '+esc(t("minutes"))+'</dd></div>';
+  h+='<div><dt>'+esc(C.cardio.lbl.notes[S.lang])+'</dt><dd>'+esc(C.cardio.notes[S.lang])+'</dd></div>';
+  h+='</dl>';
+  h+='<div class="card" style="margin-top:10px;padding:13px"><b style="font-size:12.5px;color:var(--text)">'+
+     esc(C.cardio.stepsH[S.lang])+'</b><p style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:4px">— '+
+     esc(C.cardio.noTarget[S.lang])+'</p><p style="margin-top:8px;font-size:13.5px;line-height:1.62;color:var(--text-2)">'+
+     esc(C.cardio.steps[S.lang])+'</p></div></section>';
+
+  /* 7 — cardio mistakes (slide 20) */
+  h+='<section class="sect">'+sectionH(C.mistakes.h[S.lang])+bullets(C.mistakes[S.lang])+'</section>';
+
+  /* 8 — closing (slide 22) */
+  h+='<section class="sect">'+sectionH(C.closing.h[S.lang]);
+  h+='<div class="notch"><div class="in">'+C.closing[S.lang].map((p,n)=>
+     '<p style="'+(n?"margin-top:10px;":"")+'font-size:15.5px;line-height:1.7;color:'+(n?"var(--text-2)":"var(--text)")+
+     ';font-weight:'+(n?"400":"600")+'">'+esc(p)+'</p>').join("")+'</div></div></section>';
+  h+=foot();
+  return h;
+}
+
+/* ── HISTORY ────────────────────────────────────────────────────── */
+function histRow(s){
+  const d=new Date(s.finishedAt);
+  const lbl=(dayOf(s.dayKey)||{label:t("restday")}).label;
+  const dt=d.toLocaleDateString(S.lang==="ar"?"ar-EG":"en-GB",{day:"numeric",month:"short"});
+  let h='<div><button class="hrow" data-h="'+esc(s.id)+'" aria-expanded="'+(S.open[s.id]?"true":"false")+'">';
+  h+='<span class="d">'+esc(lbl)+'</span><span class="m">'+(s.setsDone||0)+' '+esc(t("sets"))+
+     ' · '+Math.round(s.vol||0).toLocaleString("en-US")+' '+S.unit+'</span><span class="dt">'+esc(dt)+'</span></button>';
+  if(S.open[s.id]){
+    h+='<div class="hdet">';
+    (s.ex||[]).forEach(x=>{
+      const done=(x.s||[]).filter(v=>v.d);
+      if(!done.length)return;
+      h+='<div><i>'+esc(x.n)+'</i> — '+done.map(v=>esc(v.kg)+"×"+esc(v.r)).join(", ")+'</div>';
+    });
+    if(s.cardio&&s.cardio.done)h+='<div><i>'+esc(C.cardio.type[S.lang])+'</i> — '+esc(s.cardio.min||C.cardio.dur.en)+' '+esc(t("minutes"))+'</div>';
+    h+='</div>';
+  }
+  return h+'</div>';
+}
+function viewHistory(){
+  let h='<section class="sect" style="margin-top:18px">'+sectionH(T.history[S.lang]);
+  if(!S.sessions.length){
+    h+='<div class="card" style="padding:18px"><p style="color:var(--muted);font-size:13.5px">'+esc(t("nohist"))+'</p></div>';
+    h+='<div style="margin-top:12px">'+noteBlock(C.tips.items[5][S.lang],"Coach")+'</div>';
+  }else{
+    h+='<div class="hist">'+S.sessions.map(histRow).join("")+'</div>';
+  }
+  return h+'</section>'+foot();
+}
+
+function foot(){
+  return '<div class="foot"><span id="sync" class="sync">'+esc(S.status||t("savedlocal"))+'</span><br>'+esc(t("srcnote"))+'</div>';
+}
+
+/* ── dock ───────────────────────────────────────────────────────── */
+function renderDock(){
+  const n=$("#dock");
+  if(S.view!=="workout"||!S.active){n.innerHTML="";return;}
+  const tt=totals(S.active);
+  const pct=tt.all?Math.round(tt.done/tt.all*100):0;
+  n.innerHTML='<div class="dock"><div class="dock-in"><div class="prog">'+
+    '<div class="t"><span><b>'+tt.done+'</b> / '+tt.all+' '+esc(t("sets"))+'</span>'+
+    '<span>'+Math.round(tt.vol).toLocaleString("en-US")+' '+S.unit+'</span></div>'+
+    '<div class="bar"><i style="width:'+pct+'%"></i></div></div>'+
+    '<button class="cta" data-a="finish">'+esc(t("finish"))+'</button></div></div>';
+}
+function renderTimer(){
+  const n=$("#overlay"),tm=S.timer;
+  if(n.dataset.k==="modal")return;            /* a dialog owns the layer */
+  if(!tm){if(n.dataset.k==="timer"){n.innerHTML="";n.dataset.k="";}return;}
+  const left=Math.max(0,Math.ceil((tm.endsAt-Date.now())/1000));
+  const mm=Math.floor(left/60),ss=String(left%60).padStart(2,"0");
+  n.dataset.k="timer";
+  n.innerHTML='<div class="timer'+(left===0?" done":"")+'"><div class="timer-in">'+
+    '<span class="cd">'+mm+':'+ss+'</span><span class="lb"><b>'+esc(t("resting"))+'</b>'+esc(tm.name)+'</span>'+
+    '<button data-a="skiprest">'+esc(left===0?t("golift"):t("skip"))+'</button></div></div>';
+}
+function startTimer(name,sec){S.timer={endsAt:Date.now()+sec*1000,name:name};renderTimer();}
+setInterval(()=>{if(S.timer){if(Date.now()-S.timer.endsAt>20000){S.timer=null;}renderTimer();}},1000);
+
+/* ── modal ──────────────────────────────────────────────────────── */
+function modal(title,body){
+  const n=$("#overlay");n.dataset.k="modal";
+  n.innerHTML='<div class="scrim" data-a="closemodal"><div class="modal" role="dialog" aria-modal="true">'+
+    '<h3>'+esc(title)+'</h3>'+body+'<button class="x" data-a="closemodal">'+esc(t("close"))+'</button></div></div>';
+}
+function closeModal(){const n=$("#overlay");n.innerHTML="";n.dataset.k="";renderTimer();}
+
+/* ── root render ────────────────────────────────────────────────── */
+function render(){
+  document.body.setAttribute("dir",S.lang==="ar"?"rtl":"ltr");
+  document.documentElement.setAttribute("lang",S.lang);
+  const tabs=[["today",t("today")],["guide",t("guide")],["history",t("history")]];
+  $("#tabs").innerHTML=tabs.map(([k,l])=>'<button class="tab" data-v="'+k+'" role="tab" aria-selected="'+
+    ((S.view===k||(S.view==="workout"&&k==="today"))?"true":"false")+'">'+esc(l)+'</button>').join("");
+  document.querySelectorAll("#lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===S.lang?"true":"false"));
+  const v=S.view==="guide"?viewGuide():S.view==="history"?viewHistory():S.view==="workout"?viewWorkout():viewToday();
+  $("#app").innerHTML=v;
+  renderDock();
+  checkFrames();
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Actions
+   ════════════════════════════════════════════════════════════════ */
+function startWorkout(){
+  const k=slotKey(S.cycleIndex);if(k==="rest")return;
+  S.active={slot:slotNo(S.cycleIndex),dayKey:k,startedAt:Date.now(),e:blankEntries(k),cardio:{done:false,min:""}};
+  S.view="workout";saveActive(true);render();window.scrollTo(0,0);
+}
+function finishWorkout(){
+  const a=S.active;if(!a)return;
+  const d=dayOf(a.dayKey),tt=totals(a);
+  const id="s_"+a.startedAt;
+  const rec={id:id,kind:"session",dayKey:a.dayKey,slot:a.slot,startedAt:a.startedAt,
+    finishedAt:Date.now(),durationMs:Date.now()-a.startedAt,setsDone:tt.done,vol:Math.round(tt.vol),unit:S.unit,
+    cardio:a.cardio,
+    ex:d.ex.map((e,i)=>({n:e.n,w:(a.e[i]||{w:[]}).w,s:(a.e[i]||{s:[]}).s}))};
+  S.sessions.unshift(rec);
+  S.cycleIndex++;S.active=null;S.timer=null;S.view="today";
+  lsWrite();
+  const c=col();
+  if(c)queue(()=>c.doc(id).set(rec).then(()=>c.doc("active").delete()).then(()=>setStatus(t("saved"))));
+  saveState();
+  render();window.scrollTo(0,0);
+  const mins=Math.round(rec.durationMs/60000);
+  modal(t("wrote"),
+    '<div class="stats" style="margin-bottom:14px">'+
+    '<div><div class="v">'+rec.setsDone+'</div><div class="k">'+esc(t("sets"))+'</div></div>'+
+    '<div><div class="v">'+rec.vol.toLocaleString("en-US")+'</div><div class="k">'+esc(t("volume"))+' '+S.unit+'</div></div>'+
+    '<div><div class="v">'+mins+'</div><div class="k">'+esc(t("minutes"))+'</div></div></div>'+
+    C.closing[S.lang].map((p,n)=>'<p style="'+(n?"margin-top:9px":"")+'">'+esc(p)+'</p>').join(""));
+}
+function restDone(){S.cycleIndex++;saveState();render();window.scrollTo(0,0);}
+
+/* ── events ─────────────────────────────────────────────────────── */
+document.addEventListener("click",ev=>{
+  const T_=ev.target;
+  const tab=T_.closest("[data-v]");
+  if(tab){S.view=tab.dataset.v;closeModal();render();window.scrollTo(0,0);return;}
+  const lg=T_.closest("#lang button");
+  if(lg){S.lang=lg.dataset.l;saveState();render();return;}
+
+  const act=T_.closest("[data-a]");
+  if(act){
+    const a=act.dataset.a;
+    if(a==="closemodal"){if(T_.closest(".modal")&&T_.dataset.a!=="closemodal")return;closeModal();return;}
+    if(a==="start"){startWorkout();return;}
+    if(a==="go"){S.view="workout";render();window.scrollTo(0,0);return;}
+    if(a==="finish"){finishWorkout();return;}
+    if(a==="restdone"){restDone();return;}
+    if(a==="skiprest"){S.timer=null;renderTimer();return;}
+  }
+  const info=T_.closest("[data-i]");
+  if(info){
+    const k=info.dataset.i;
+    if(k==="novid"){modal(t("novid"),'<p>'+esc(t("novidmsg"))+'</p>');return;}
+    const g=C.gloss.items.find(x=>x.k===k);
+    if(g)modal(g.t[S.lang],'<p>'+esc(g.d[S.lang])+'</p>');
+    return;
+  }
+  const disc=T_.closest("[data-d]");
+  if(disc){S.open[disc.dataset.d]=!S.open[disc.dataset.d];render();return;}
+  const hist=T_.closest("[data-h]");
+  if(hist){S.open[hist.dataset.h]=!S.open[hist.dataset.h];render();return;}
+
+  const pv=T_.closest("[data-pv]");
+  if(pv){S.player=S.player===pv.dataset.pv?null:pv.dataset.pv;render();return;}
+
+  /* Ticking a set updates in place — a full re-render would tear down
+     an open player and restart the video mid-set. */
+  const tick=T_.closest("button.tick[data-x]");
+  if(tick&&S.active){
+    const i=+tick.dataset.x,p=tick.dataset.p,j=+tick.dataset.j;
+    const st=S.active.e[i][p][j];st.d=!st.d;
+    if(st.d){
+      const e=dayOf(S.active.dayKey).ex[i];
+      if(!st.r){
+        st.r=e.reps.split("-")[0];
+        const inp=document.getElementById("f-"+p+i+"-"+j+"-r");
+        if(inp)inp.value=st.r;
+      }
+      startTimer(e.n,e.sec);
+    }
+    tick.setAttribute("aria-pressed",st.d?"true":"false");
+    const card=tick.closest(".ex"),en=S.active.e[i];
+    if(card)card.classList.toggle("is-done",en.s.length>0&&en.s.every(s=>s.d));
+    saveActive();renderDock();
+    return;
+  }
+  const cd=T_.closest("button.tick[data-c]");
+  if(cd&&S.active){S.active.cardio.done=!S.active.cardio.done;saveActive();render();}
+});
+document.addEventListener("input",ev=>{
+  const el=ev.target;if(!S.active)return;
+  if(el.dataset.c==="min"){S.active.cardio.min=el.value;saveActive();return;}
+  if(el.dataset.x===undefined)return;
+  const i=+el.dataset.x,p=el.dataset.p,j=+el.dataset.j,f=el.dataset.f;
+  if(!S.active.e[i])return;
+  S.active.e[i][p][j][f]=el.value;
+  saveActive();
+  if(S.view==="workout")renderDock();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+/* ════════════════════════════════════════════════════════════════
+   Boot — render from local cache immediately, light up db after
+   ════════════════════════════════════════════════════════════════ */
+(function boot(){
+  const c=lsRead();
+  if(c){S.lang=c.lang||"en";S.unit=c.unit||"kg";S.cycleIndex=c.cycleIndex||0;
+        S.active=c.active||null;S.sessions=c.sessions||[];
+        if(S.active)S.view="workout";}
+  S.status=T.savedlocal[S.lang];
+  render();
+})();
+
+(async function link(){
+  let db=null,user=null;
+  try{db=await window.claude?.use?.("db");}catch(e){}
+  try{user=await window.claude?.use?.("user");}catch(e){}
+  if(!db||!user)return;
+  let uid=null;
+  try{uid=await user.id();}catch(e){}
+  if(!uid)return;
+  S.db=db;S.uid=uid;
+  const c=db.collection("data/users/"+uid);
+  try{
+    const st=await c.doc("state").get();
+    if(st.exists){
+      const v=st.data();
+      if(typeof v.cycleIndex==="number")S.cycleIndex=v.cycleIndex;
+      if(v.unit)S.unit=v.unit;
+      if(v.lang&&!lsRead())S.lang=v.lang;
+    }
+    const ac=await c.doc("active").get();
+    if(ac.exists){
+      const v=ac.data();
+      if(!S.active||(v.startedAt||0)>=(S.active.startedAt||0)){
+        S.active={slot:v.slot,dayKey:v.dayKey,startedAt:v.startedAt,e:v.e||blankEntries(v.dayKey),
+                  cardio:v.cardio||{done:false,min:""}};
+        S.view="workout";
+      }
+    }
+    const qs=await c.where("kind","==","session").orderBy("finishedAt","desc").limit(200).get();
+    const remote=qs.docs.map(d=>Object.assign({id:d.id},d.data()));
+    const seen=new Set(remote.map(r=>r.id));
+    S.sessions=remote.concat(S.sessions.filter(s=>!seen.has(s.id)))
+                     .sort((a,b)=>(b.finishedAt||0)-(a.finishedAt||0));
+    setStatus(T.saved[S.lang]);
+    lsWrite();render();
+  }catch(e){dbErr(e);}
+})();
+</script>
+
+</body></html>

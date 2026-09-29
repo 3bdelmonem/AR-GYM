@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AR GYM</title>
+<meta name="description" content="AR GYM — your training plan, set log and the coach's demo videos, offline.">
+<meta name="theme-color" content="#14100E">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AR GYM">
+<meta name="application-name" content="AR GYM">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <b>AR<i>/</i>GYM</b>
+    </div>
+    <div class="spacer"></div>
+    <div class="lang" id="lang">
+      <button data-l="en" aria-pressed="true">EN</button>
+      <button data-l="ar" aria-pressed="false">ع</button>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+  <div class="bnr" id="bnr"></div>
+</header>
+
+<main class="wrap" id="app"></main>
+<div id="dock"></div>
+<div id="overlay"></div>
+<input type="file" id="importf" accept=".json,application/json" hidden>
+
+<script type="module" src="/src/app.js"></script>
+</body>
+</html>
